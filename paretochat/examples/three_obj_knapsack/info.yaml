@@ -1,0 +1,22 @@
+---
+problem:
+  description: "This is a three-objective single-dimensional knapsack problem. The problem is to select a set of items that maximizes the objectives without exceeding the capacity."
+  objectives:
+    - name: "total_value"
+      description: "Maximize total value of items selected"
+      sense: "MAXIMIZE"
+    - name: "total_utility"
+      description: "Maximize total utility to be derived from items selected"
+      sense: "MAXIMIZE"
+    - name: "total_happiness"
+      description: "Maximize total happiness to be derived from items selected"
+      sense: "MAXIMIZE"
+algorithm:
+  name: "KnapsackSolver"
+  description: "A single objective knapsack problem solver using OR-Tools."
+  optimization_direction: "MAXIMIZE"
+  supports_obj_bounds: true
+  supported_scalarizations:
+    - "WEIGHTED_SUM"
+    - "REFERENCE_POINT"
+    - "LEXICOGRAPHIC"

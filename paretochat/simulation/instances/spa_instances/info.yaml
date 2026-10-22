@@ -1,0 +1,19 @@
+---
+problem:
+  description: "This is a two-objective set-partitioning problem. The problem is to select a subset of n items that satisfies m equality constraints while minimizing the objectives."
+  objectives:
+    - name: "Objective_1"
+      description: "Minimize Objective_1 of items selected"
+      sense: "MINIMIZE"
+    - name: "Objective_2"
+      description: "Minimize Objective_2 of items selected"
+      sense: "MINIMIZE"
+algorithm:
+  name: "SPASolver"
+  description: "A set partitioning solver using OR-Tools."
+  optimization_direction: "MINIMIZE"
+  supports_obj_bounds: true
+  supported_scalarizations:
+    - "WEIGHTED_SUM"
+    - "REFERENCE_POINT"
+    - "LEXICOGRAPHIC"

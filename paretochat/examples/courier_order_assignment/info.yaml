@@ -1,0 +1,21 @@
+---
+problem:
+  description: "This is a multi-objective courier order assignment problem. The problem is to assign a set of orders to a set of couriers in a way that optimizes multiple criteria such as total pickup duration, total delivery delay, and total pickup delay."
+  objectives:
+    - name: "TotalPickupDurationCriterion"
+      description: "Minimize total pickup duration"
+      sense: "MINIMIZE"
+    - name: "TotalDeliveryDelayCriterion"
+      description: "Minimize total delivery delay"
+      sense: "MINIMIZE"
+    - name: "TotalPickupDelayCriterion"
+      description: "Minimize total pickup delay"
+      sense: "MINIMIZE"
+algorithm:
+  name: "Courier Order Assignment"
+  description: "Assigns orders to couriers while optimizing multiple criteria."
+  optimization_direction: "MINIMIZE"
+  supports_obj_bounds: false
+  supported_scalarizations:
+    - "WEIGHTED_SUM"
+    - "LEXICOGRAPHIC"

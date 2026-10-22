@@ -1,0 +1,19 @@
+---
+problem:
+  description: "This is a biobj discrete choice problem. The problem is to select the best solution from a set of solutions based on the user's preferences."
+  objectives:
+    - name: "cost"
+      description: "Minimize cost"
+      sense: "MINIMIZE"
+    - name: "delivery_time"
+      description: "Minimize delivery time"
+      sense: "MINIMIZE"
+algorithm:
+  name: "biobj_discrete_choice"
+  description: "A biobj discrete choice algorithm."
+  optimization_direction: "MINIMIZE"
+  supports_obj_bounds: true
+  supported_scalarizations:
+    - "WEIGHTED_SUM"
+    - "REFERENCE_POINT"
+    - "LEXICOGRAPHIC"

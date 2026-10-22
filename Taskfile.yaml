@@ -1,0 +1,37 @@
+---
+version: "3"
+
+tasks:
+  default:
+    desc: list all available tasks
+    cmds:
+      - task --list
+
+  setup:
+    desc: Setup local Python environment with uv and install all dependencies
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - uv venv --python $(cat .python-version)
+      - uv sync --all-groups
+      - uv run pre-commit install
+
+  lint:
+    desc: Auto-fix formatting and linting issues
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - uv run ruff format --config pyproject.toml
+      - uv run ruff check --fix --config pyproject.toml
+
+  lint-check:
+    desc: Check formatting and linting without modifying files
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - uv run ruff format --diff --check --config pyproject.toml
+      - uv run ruff check --config pyproject.toml
+      - uv run bandit -r . -c "pyproject.toml"
+      - uv run yamllint .
+
+  test:
+    desc: Run pytest
+    cmds:
+      - uv run pytest

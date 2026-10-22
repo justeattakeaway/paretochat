@@ -1,0 +1,126 @@
+[project]
+name = "paretochat"
+version = "1.0.0"
+description = "A multi-objective decision support library with an interactive optimization assistant."
+authors = []
+readme = "README.md"
+license = { text = "Apache-2.0" }
+
+requires-python = ">=3.12, <3.13"
+
+dependencies = [
+    "typer>=0.9.0,<1.0.0",
+    "click~=8.1.8",
+    "langchain>=1.2.0",
+    "langchain-google-genai==4.2.0",
+    "pydantic>=2.11.10",
+    "langgraph>=1.0.5",
+    "ipython>=8.37.0",
+    "ipykernel>=7.1.0",
+    "pyyaml>=6.0.3",
+    "rich>=13.0.0",
+    "ortools==9.14.6206",
+    "pymoo>=0.6.1.6",
+    "desdeo>=2.4.0",
+    "gurobipy==13.0.0",
+    "langchain-claude-cli>=1.2.1",
+]
+
+[project.optional-dependencies]
+ollama = [
+    "langchain-ollama>=0.3.0",
+]
+free = [
+    "paretochat[ollama]",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["paretochat*"]
+
+[dependency-groups]
+dev = [
+    "bandit[toml]>=1.7.5,<2.0.0",
+    "pre-commit>=3.3.3,<4.0.0",
+    "pytest>=8.0.0",
+    "pytest-cov>=6.0.0",
+    "ruff>=0.7.2,<1.0.0",
+    "yamllint>=1.32.0,<2.0.0"
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = [
+    "--cov-report=term:skip-covered",
+    "--cov-report=xml:coverage.xml",
+    "--cov=paretochat",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning"
+]
+testpaths = [
+    "tests",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+exclude = [
+    ".git",
+    "pyproject.toml",
+    "poetry.lock",
+    "uv.lock",
+    ".venv",
+]
+
+[tool.ruff.lint]
+select = [
+    "F",  # pyflakes
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "I",  # sort imports
+    "YTT",  # flake8-2020
+    "B",  # flake8-bugbear
+    "Q",  # flake8-quotes
+    "PLE", "PLR", "PLW",  # pylint
+]
+
+ignore = [
+    "B008",  # Function call in defaults. Required for CLI.
+    "E501",  # line too long, handled by black
+    "F821",  # undefined name
+    "PLR2004", # Magic values
+    "PLR0913", # too many arguments
+    "PLR0915", # too many arguments
+    "PLR0912", # too many branches
+    "PLR0917", # too many positional arguments (CLI entry points can't avoid this)
+]
+
+[tool.ruff.lint.isort]
+force-sort-within-sections = true
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+
+[tool.mypy]
+ignore_missing_imports = true
+allow_untyped_calls = true
+allow_redefinition = true
+disallow_untyped_defs = true
+
+[tool.bandit]
+exclude_dirs = ["venv", ".venv"]
+skips = ["B301", "B403", "B311"]
+
+[tool.bandit.assert_used]
+skips = ['./tests/*.py']
+
+[tool.deptry]
+ignore_notebooks = true
+
+
+[tool.uv]
+# CVE-2026-0994: ortools 9.14 caps protobuf<6.32, but 9.15 breaks Gurobi (see README).
+override-dependencies = ["protobuf>=6.33.5,<7"]

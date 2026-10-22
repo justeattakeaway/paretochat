@@ -1,0 +1,8 @@
+---
+repos:
+  - repo: local
+    hooks:
+      - id: lint
+        name: Lint local python and yaml files
+        entry: bash -c 'task lint-check'
+        language: system

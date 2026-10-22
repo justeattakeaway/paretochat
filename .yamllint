@@ -1,0 +1,42 @@
+---
+# Needed if you have set up uv such that it creates the .venv in your project environment - this will ignore yaml files in the packages you've installed
+ignore:
+  - .venv
+  - pipeline_renders
+
+yaml-files:
+  - '*.yaml'
+  - '*.yml'
+  - '.yamllint'
+
+rules:
+  braces: enable
+  brackets: enable
+  colons: enable
+  commas: enable
+  comments:
+    level: warning
+  comments-indentation:
+    level: warning
+  document-end: disable
+  document-start:
+    level: warning
+  empty-lines: enable
+  empty-values: disable
+  float-values: disable
+  hyphens: enable
+  indentation: enable
+  key-duplicates: enable
+  key-ordering: disable
+  line-length:
+    level: warning
+    max: 240
+    allow-non-breakable-words: true
+    allow-non-breakable-inline-mappings: false
+  new-line-at-end-of-file: enable
+  new-lines: enable
+  octal-values: disable
+  quoted-strings: disable
+  trailing-spaces: enable
+  truthy:
+    level: warning

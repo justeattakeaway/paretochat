@@ -1,0 +1,28 @@
+---
+problem:
+  description: "This is a five-objective single-dimensional binary knapsack problem. The problem is to select a set of items that maximizes the objectives without exceeding the capacity."
+  objectives:
+    - name: "Objective_1"
+      description: "Maximize Objective_1 of items selected"
+      sense: "MAXIMIZE"
+    - name: "Objective_2"
+      description: "Maximize Objective_2 of items selected"
+      sense: "MAXIMIZE"
+    - name: "Objective_3"
+      description: "Maximize Objective_3 of items selected"
+      sense: "MAXIMIZE"
+    - name: "Objective_4"
+      description: "Maximize Objective_4 of items selected"
+      sense: "MAXIMIZE"
+    - name: "Objective_5"
+      description: "Maximize Objective_5 of items selected"
+      sense: "MAXIMIZE"
+algorithm:
+  name: "KnapsackSolver"
+  description: "A single objective knapsack problem solver using OR-Tools."
+  optimization_direction: "MAXIMIZE"
+  supports_obj_bounds: true
+  supported_scalarizations:
+    - "WEIGHTED_SUM"
+    - "REFERENCE_POINT"
+    - "LEXICOGRAPHIC"
