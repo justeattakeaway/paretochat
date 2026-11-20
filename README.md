@@ -27,14 +27,17 @@ It helps users navigate Pareto-optimal solution sets by expressing preferences i
 
 - Python 3.12
 - [`uv`](https://docs.astral.sh/uv/) (recommended for environment management)
+- [`task`](https://taskfile.dev/installation/) (Taskfile runner, used for `task setup` and other project commands)
 - An LLM provider (see [LLM Configuration](#llm-configuration) below)
+
+> **Note:** ParetoChat has only been tested on a single local machine: macOS 26.7.1 (Apple Silicon, arm64) with Python 3.12.12, `uv` 0.9.26 and `task` 3.48.0. Other operating systems and tool versions have not been tested and may need adjustments. The CI workflow runs linting and unit tests on `ubuntu-latest`, but the full interactive workflow with an LLM has not been exercised there.
 
 ## Installation
 
 From source:
 
 ```bash
-git clone https://github.com/your-org/paretochat.git
+git clone https://github.com/justeattakeaway/paretochat.git
 cd paretochat
 task setup
 ```
