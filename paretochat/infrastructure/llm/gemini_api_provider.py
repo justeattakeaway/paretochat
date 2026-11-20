@@ -5,7 +5,7 @@ import os
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-_DEFAULT_MODEL = "gemini-2.0-flash"
+_DEFAULT_MODEL = "gemini-3.1-pro-preview"
 
 
 def create_gemini_api_model() -> BaseChatModel:
@@ -16,7 +16,7 @@ def create_gemini_api_model() -> BaseChatModel:
 
     Environment variables:
       - GOOGLE_API_KEY   — required
-      - GEMINI_API_MODEL — model name (default: gemini-2.0-flash)
+      - GEMINI_API_MODEL — model name (default: gemini-3.1-pro-preview)
     """
     api_key = os.environ.get("GOOGLE_API_KEY")
     if not api_key:

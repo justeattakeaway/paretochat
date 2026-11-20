@@ -47,10 +47,14 @@ Set the `LLM_PROVIDER` environment variable to select your backend:
 
 | `LLM_PROVIDER` value | Provider | Required env vars | Model env var (optional) |
 |---|---|---|---|
-| `gemini-vertex` (default) | Gemini via Vertex AI | `GOOGLE_CLOUD_PROJECT` | `GEMINI_VERTEX_MODEL` (default: `gemini-2.5-pro`) |
-| `gemini-api` | Gemini via Google AI API | `GOOGLE_API_KEY` | `GEMINI_API_MODEL` (default: `gemini-2.0-flash`) |
-| `claude-cli` | Claude via Claude CLI | Claude CLI installed and authenticated | `CLAUDE_MODEL` (default: `claude-sonnet-4-5`) |
+| `gemini-vertex` (default) | Gemini via Vertex AI | `GOOGLE_CLOUD_PROJECT` | `GEMINI_VERTEX_MODEL` (default: `gemini-3.1-pro-preview`) |
+| `gemini-api` | Gemini via Google AI API | `GOOGLE_API_KEY` | `GEMINI_API_MODEL` (default: `gemini-3.1-pro-preview`) |
+| `claude-cli` | Claude via Claude CLI | Claude CLI installed and authenticated | `CLAUDE_MODEL` (default: `claude-sonnet-5-5`) |
 | `ollama` | Local Ollama server | Ollama running locally | `OLLAMA_MODEL` (default: `llama3.1:8b`), `OLLAMA_BASE_URL` (default: `http://localhost:11434`) |
+
+> **Note:** The default Gemini model (`gemini-3.1-pro-preview`) is a preview model, and preview models can change or be retired on short notice. The default models are retired by their providers from time to time. If a default model is no longer available, you will get model-not-found or similar errors at startup. In that case, set the model env var for your provider (`GEMINI_VERTEX_MODEL`, `GEMINI_API_MODEL`, `CLAUDE_MODEL` or `OLLAMA_MODEL`) to a currently supported model. Check the provider's model or deprecation page for current model names.
+
+> **Note:** ParetoChat has mostly been developed and tested with Gemini 2.5 Pro (via `gemini-vertex`). That model may no longer be available. Its behavior with other models, especially smaller or less capable ones, has not been systematically evaluated and may be unreliable, particularly for structured output and tool calling. If you see poor results, try a more capable model.
 
 ### Vertex AI setup
 
@@ -62,8 +66,8 @@ gcloud auth application-default login
 
 export LLM_PROVIDER=gemini-vertex
 export GOOGLE_CLOUD_PROJECT=your-gcp-project-id
-export GOOGLE_CLOUD_REGION=us-west1  # optional, defaults to us-west1
-export GEMINI_VERTEX_MODEL=gemini-2.5-flash  # optional, defaults to gemini-2.5-pro
+export GOOGLE_CLOUD_REGION=global  # optional, defaults to global (Gemini 3.x models are not available in regional endpoints)
+export GEMINI_VERTEX_MODEL=<model-name>  # optional, defaults to gemini-3.1-pro-preview
 ```
 
 ### Ollama setup
