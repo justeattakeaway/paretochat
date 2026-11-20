@@ -34,7 +34,7 @@ During your summary, follow these guidelines:
 9. Do not generate any additional solution numbersin the summary, use trial number instead.
 """
 
-_ai_message = """
+_human_message = """
 Please provide a summary of the session progress so far.
 Additional context from user (if any): <user_input>{user_request}</user_input>
 """
@@ -42,7 +42,7 @@ Additional context from user (if any): <user_input>{user_request}</user_input>
 _template = ChatPromptTemplate(
     [
         ("system", _system_message + UNTRUSTED_INPUT_NOTICE),
-        ("ai", _ai_message),
+        ("human", _human_message),
     ]
 )
 

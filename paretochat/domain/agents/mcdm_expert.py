@@ -93,7 +93,7 @@ based on common practices in multi-criteria decision making or the scalarization
 - Never make up information that is not provided by the user command or the tools.
 """
 
-_ai_message = """
+_human_message = """
 User command: <user_input>{user_command}</user_input>
 Found duplicate solution: {found_duplicate_solution}
 Number of solution attempts so far: {num_solution_attempts}
@@ -102,7 +102,7 @@ Number of solution attempts so far: {num_solution_attempts}
 _template = ChatPromptTemplate(
     [
         ("system", _system_message + UNTRUSTED_INPUT_NOTICE),
-        ("ai", _ai_message),
+        ("human", _human_message),
     ]
 )
 

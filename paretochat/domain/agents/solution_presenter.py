@@ -27,7 +27,7 @@ During your presentation, follow these guidelines:
 - If the solution is a duplicate, inform the user that no other solution could be found and the presented solution is the same as one of the previously generated solutions.
 """
 
-_ai_message = """
+_human_message = """
 User input: <user_input>{user_input}</user_input>
 Objective scalarization: {objective_scalarization}
 Solution: {solution}
@@ -37,7 +37,7 @@ Found duplicate solution: {found_duplicate_solution}
 _template = ChatPromptTemplate(
     [
         ("system", _system_message + UNTRUSTED_INPUT_NOTICE),
-        ("ai", _ai_message),
+        ("human", _human_message),
     ]
 )
 
