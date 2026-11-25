@@ -59,7 +59,7 @@ Set the `LLM_PROVIDER` environment variable to select your backend:
 
 > **Note:** ParetoChat has mostly been developed and tested with Gemini 2.5 Pro (via `gemini-vertex`). That model may no longer be available. Its behavior with other models, especially smaller or less capable ones, has not been systematically evaluated and may be unreliable, particularly for structured output and tool calling. If you see poor results, try a more capable model.
 
-### Vertex AI setup
+### Gemini via Vertex AI (`gemini-vertex`)
 
 `gemini-vertex` uses [Application Default Credentials](https://cloud.google.com/docs/authentication/application-default-credentials). For local development, authenticate with the gcloud CLI:
 
@@ -73,7 +73,26 @@ export GOOGLE_CLOUD_REGION=global  # optional, defaults to global (Gemini 3.x mo
 export GEMINI_VERTEX_MODEL=<model-name>  # optional, defaults to gemini-3.1-pro-preview
 ```
 
-### Ollama setup
+### Gemini via Google AI API (`gemini-api`)
+
+`gemini-api` uses a Google AI Studio API key directly, so no GCP project is needed. Get a key at <https://aistudio.google.com/apikey>.
+
+```bash
+export LLM_PROVIDER=gemini-api
+export GOOGLE_API_KEY=your-api-key
+export GEMINI_API_MODEL=<model-name>  # optional, defaults to gemini-3.1-pro-preview
+```
+
+### Claude via Claude CLI (`claude-cli`)
+
+`claude-cli` runs Claude through the [Claude Code CLI](https://docs.claude.com/en/docs/claude-code/overview) using its existing login, so no API key is needed. Install the CLI and authenticate once by running `claude` and logging in:
+
+```bash
+export LLM_PROVIDER=claude-cli
+export CLAUDE_MODEL=<model-name>  # optional, defaults to claude-sonnet-5-5
+```
+
+### Ollama (`ollama`)
 
 ```bash
 # Install Ollama: https://ollama.com/download
