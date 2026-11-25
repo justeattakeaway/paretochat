@@ -5,7 +5,7 @@ from langchain_core.prompts import ChatPromptTemplate
 
 from paretochat.domain.sanitization import UNTRUSTED_INPUT_NOTICE, sanitize_user_input
 from paretochat.domain.user import UserFeedback, UserFeedbackSentiment
-from paretochat.infrastructure.llm.gemini_model import create_llm_model
+from paretochat.infrastructure.llm.provider_factory import create_llm_model
 
 _system_message = """
 You are a feedback processing assistant that helps to understand user feedback

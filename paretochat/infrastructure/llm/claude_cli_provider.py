@@ -2,6 +2,8 @@
 
 import json
 import os
+import shutil
+import subprocess  # nosec B404 - only used to run the fixed command `claude auth status`
 from typing import Any, Callable, Mapping, Sequence, Union
 
 from langchain_claude_cli import ChatClaudeCli
@@ -83,3 +85,25 @@ def create_claude_model() -> BaseChatModel:
     """Create Claude Chat model using Claude CLI oauth"""
     model = os.environ.get("CLAUDE_MODEL", _DEFAULT_MODEL)
     return _ChatClaudeCli(model=model)
+
+
+def check_claude_login() -> None:
+    """Raise RuntimeError with a clear message if the Claude CLI is missing or not logged in.
+
+    When logged out, the CLI answers requests with the text "Not logged in · Please run /login" flagged as an
+    error but with subtype "success", which langchain-claude-cli passes on as a normal reply. A plain test
+    request therefore looks like it worked, so the login state is checked explicitly instead.
+    The output of `claude auth status` contains account details and is deliberately not included in errors.
+    """
+    claude = shutil.which("claude")
+    if claude is None:
+        raise RuntimeError("the 'claude' CLI was not found on PATH; install Claude Code and run `claude auth login`")
+    try:
+        # Fixed arguments and no shell; the executable is the `claude` found on PATH, so no untrusted input is involved.
+        result = subprocess.run(  # nosec B603
+            [claude, "auth", "status"], capture_output=True, text=True, timeout=30, check=False
+        )
+    except subprocess.TimeoutExpired as e:
+        raise RuntimeError("`claude auth status` timed out") from e
+    if result.returncode != 0:
+        raise RuntimeError("the Claude CLI is not logged in; run `claude auth login`")

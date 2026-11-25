@@ -6,7 +6,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from paretochat.domain.problem import Solution
 from paretochat.domain.sanitization import UNTRUSTED_INPUT_NOTICE, sanitize_user_input
 from paretochat.domain.scoring import ObjectiveScalarization
-from paretochat.infrastructure.llm.gemini_model import create_llm_model
+from paretochat.infrastructure.llm.provider_factory import create_llm_model
 
 _system_message = """
 You are a solution presenter that helps to present solutions to the user.

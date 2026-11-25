@@ -10,7 +10,7 @@ from paretochat.domain.solution_pool import (
     get_solutions,
     get_user_saved_solutions,
 )
-from paretochat.infrastructure.llm.gemini_model import create_llm_model
+from paretochat.infrastructure.llm.provider_factory import create_llm_model
 
 _system_message = """
 You are a session summarizer that helps users understand their progress in exploring multi-criteria optimization solutions.

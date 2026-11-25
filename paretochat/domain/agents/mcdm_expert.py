@@ -27,7 +27,7 @@ from paretochat.domain.solution_pool import (
 from paretochat.domain.solution_pool import (
     get_solution as _get_solution,
 )
-from paretochat.infrastructure.llm.gemini_model import create_llm_model
+from paretochat.infrastructure.llm.provider_factory import create_llm_model
 
 _system_message = """
 You are an expert on Multi Criteria Decision Making. You know what a nondominated point is.

@@ -11,7 +11,7 @@ from langgraph.errors import GraphRecursionError
 from pydantic import BaseModel, Field
 
 from paretochat.domain.problem import ProblemInfo, Solution
-from paretochat.infrastructure.llm.gemini_model import create_llm_model
+from paretochat.infrastructure.llm.provider_factory import create_llm_model
 
 
 class EvaluateSolutionInput(BaseModel):

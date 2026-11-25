@@ -9,6 +9,7 @@ from langgraph.types import Command
 from paretochat.domain.algorithm import Algorithm
 from paretochat.domain.graph import RECURSION_LIMIT, ParetoChatGraph
 from paretochat.domain.sanitization import sanitize_user_input
+from paretochat.infrastructure.llm.provider_factory import ensure_llm_access
 
 _logger = logging.getLogger(__name__)
 
@@ -45,6 +46,8 @@ class ParetoChatAgent:
                 scalarization. Return False to cancel. Interactive front ends should
                 pass a handler that asks the user; non-interactive runs may keep the default.
         """
+        # Fail fast, before the first user input, if the configured LLM cannot be used (checked once per process).
+        ensure_llm_access()
         self.graph = ParetoChatGraph(domain_info_path, algorithm).build()
         self.approval_handler = approval_handler
         self._config = {

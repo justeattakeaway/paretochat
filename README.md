@@ -55,6 +55,8 @@ Set the `LLM_PROVIDER` environment variable to select your backend:
 | `claude-cli` | Claude via Claude CLI | Claude CLI installed and authenticated | `CLAUDE_MODEL` (default: `claude-sonnet-5-5`) |
 | `ollama` | Local Ollama server | Ollama running locally | `OLLAMA_MODEL` (default: `llama3.1:8b`), `OLLAMA_BASE_URL` (default: `http://localhost:11434`) |
 
+> **Access check:** When a session starts (and the first time an LLM is created in the process), ParetoChat sends one tiny request to the configured model. If it fails, you get a clear error naming the provider and model instead of a confusing parsing error later.
+
 > **Note:** The default Gemini model (`gemini-3.1-pro-preview`) is a preview model, and preview models can change or be retired on short notice. The default models are retired by their providers from time to time. If a default model is no longer available, you will get model-not-found or similar errors at startup. In that case, set the model env var for your provider (`GEMINI_VERTEX_MODEL`, `GEMINI_API_MODEL`, `CLAUDE_MODEL` or `OLLAMA_MODEL`) to a currently supported model. Check the provider's model or deprecation page for current model names.
 
 > **Note:** ParetoChat has mostly been developed and tested with Gemini 2.5 Pro (via `gemini-vertex`). That model may no longer be available. Its behavior with other models, especially smaller or less capable ones, has not been systematically evaluated and may be unreliable, particularly for structured output and tool calling. If you see poor results, try a more capable model.
@@ -85,7 +87,7 @@ export GEMINI_API_MODEL=<model-name>  # optional, defaults to gemini-3.1-pro-pre
 
 ### Claude via Claude CLI (`claude-cli`)
 
-`claude-cli` runs Claude through the [Claude Code CLI](https://docs.claude.com/en/docs/claude-code/overview) using its existing login, so no API key is needed. Install the CLI and authenticate once by running `claude` and logging in:
+`claude-cli` runs Claude through the [Claude Code CLI](https://docs.claude.com/en/docs/claude-code/overview) using its existing login, so no API key is needed. Install the CLI and authenticate once with `claude auth login` (check with `claude auth status`). ParetoChat verifies the login at startup:
 
 ```bash
 export LLM_PROVIDER=claude-cli
